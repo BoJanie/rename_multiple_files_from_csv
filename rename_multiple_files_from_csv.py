@@ -16,18 +16,15 @@ path = 'rename_these_files/'
 for key in IDs:
     if not os.path.isfile(str(path+key)):
         print key + ' is listed in .csv file but is not in folder.'
-                
-for filename in os.listdir(path):
-    oldname = filename
 
 failed = []
-for oldname in os.listdir(path):
+for filename in os.listdir(path):
     try:
-        old = os.path.join(path, oldname)
-        new = os.path.join(path, IDs[oldname])
+        old = os.path.join(path, filename)
+        new = os.path.join(path, IDs[filename])
         os.rename(old, new)
     #this error section below will inform the user if a file in the directory was not in .csv
-    #could also be error in other cases? The lack of .csv was the only one I experienced.
+    #could also possibly result from other cases... The lack of .csv was the only one I experienced.
     except KeyError, OSError:
-        failed.append(oldname)
-        print oldname + ' was not in the .csv file and so was not renamed.'
+        failed.append(filename)
+        print filename + ' was not in the .csv file and so was not renamed.'
