@@ -3,6 +3,8 @@ import os, csv, sys
 
 #open and store csv file as a 'dictionary'
 IDs = {}
+#Make sure you save the csv as a simple csv or microsoft csv
+#CSVs Mac automatically makes don't go through properly (will get error message)
 with open('rename_key.csv','rb') as csvfile:
     timeReader = csv.reader(csvfile, delimiter = ',')
     #build dictionary with associated IDs
@@ -22,9 +24,9 @@ for filename in os.listdir(path):
     try:
         old = os.path.join(path, filename)
         new = os.path.join(path, IDs[filename])
-        os.rename(old, new)
+        os.system('cp '+old+' '+new)
     #this error section below will inform the user if a file in the directory was not in .csv
-    #could also possibly result from other cases... The lack of .csv was the only one I experienced.
+    #could also be error in other cases? The lack of .csv was the only one I experienced.
     except KeyError, OSError:
         failed.append(filename)
         print filename + ' was not in the .csv file and so was not renamed.'
